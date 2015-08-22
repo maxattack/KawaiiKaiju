@@ -1,5 +1,7 @@
 # KawaiiKaiju
 
+(c) 2015 Max Kaufmann, all rights reserved.
+
 Creative Commons Legal Code
 
 Attribution-ShareAlike 3.0 Unported
