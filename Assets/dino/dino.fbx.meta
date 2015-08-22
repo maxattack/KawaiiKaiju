@@ -28,6 +28,9 @@ ModelImporter:
     100040: tail0
     100042: tail1
     100044: tail2
+    100046: controls
+    100048: l_foot_handle
+    100050: r_foot_handle
     400000: crown
     400002: //RootNode
     400004: head
@@ -51,6 +54,9 @@ ModelImporter:
     400040: tail0
     400042: tail1
     400044: tail2
+    400046: controls
+    400048: l_foot_handle
+    400050: r_foot_handle
     4300000: mesh
     9500000: //RootNode
     13700000: mesh
