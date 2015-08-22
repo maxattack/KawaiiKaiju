@@ -22,6 +22,7 @@ public class Dino : CustomBehaviour {
 	public float maxSpeed = 1f;
 	public float maxRotationSpeed = 90f;
 	public AudioSource[] footfalls;
+	public AudioSource roar;
 
 	internal static Dino inst;
 	internal Animator anim;
@@ -29,7 +30,8 @@ public class Dino : CustomBehaviour {
 	internal SmoothValue linear = new SmoothValue();
 	internal SmoothValue angular = new SmoothValue();
 	
-	static int kSpeed = Animator.StringToHash("speed");
+	static int kSpeed = Animator.StringToHash("Speed");
+	static int kRoar = Animator.StringToHash("Roar");
 	
 	// callbacks
 
@@ -45,12 +47,19 @@ public class Dino : CustomBehaviour {
 	
 	void Update() {
 		
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			anim.SetTrigger(kRoar);
+		}
+		
 		anim.SetFloat(kSpeed, Mathf.Max (linear.speed, Mathf.Abs(angular.speed/maxRotationSpeed)));
 	}
 	
 	void FixedUpdate () {
 
-		var targetSpeed = Input.GetKey(KeyCode.UpArrow) ? maxSpeed : Input.GetKey(KeyCode.DownArrow) ? -maxSpeed : 0f;
+		
+		var targetSpeed = Input.GetKey(KeyCode.UpArrow) ? maxSpeed : 0f;
+		if (anim.GetCurrentAnimatorStateInfo(0).shortNameHash == kRoar)
+			targetSpeed = 0f;
 		var speed = linear.Update (targetSpeed, 0.15f);
 		body.MovePosition(body.position + speed * transform.forward * Time.fixedDeltaTime);
 		
@@ -60,8 +69,14 @@ public class Dino : CustomBehaviour {
 		
 	}
 	
+	// animation events
+	
 	void Footfall() {
 		var randomFootfall = Random.Range(0, footfalls.Length);
 		footfalls[randomFootfall].Play();
+	}
+	
+	void Roar() {
+		roar.Play();
 	}
 }
