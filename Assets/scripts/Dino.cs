@@ -21,6 +21,7 @@ public class Dino : CustomBehaviour {
 
 	public float maxSpeed = 1f;
 	public float maxRotationSpeed = 90f;
+	public AudioSource[] footfalls;
 
 	internal static Dino inst;
 	internal Animator anim;
@@ -44,7 +45,7 @@ public class Dino : CustomBehaviour {
 	
 	void Update() {
 		
-		anim.SetFloat(kSpeed, linear.speed + Mathf.Abs(angular.speed));
+		anim.SetFloat(kSpeed, Mathf.Max (linear.speed, Mathf.Abs(angular.speed/maxRotationSpeed)));
 	}
 	
 	void FixedUpdate () {
@@ -57,5 +58,10 @@ public class Dino : CustomBehaviour {
 		var angSpeed = angular.Update (steering, 0.15f);
 		body.MoveRotation(body.rotation * Quaternion.AngleAxis(angSpeed * Time.fixedDeltaTime, Vector3.up));
 		
+	}
+	
+	void Footfall() {
+		var randomFootfall = Random.Range(0, footfalls.Length);
+		footfalls[randomFootfall].Play();
 	}
 }
