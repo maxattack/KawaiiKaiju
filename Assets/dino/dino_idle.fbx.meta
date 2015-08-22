@@ -1,0 +1,203 @@
+fileFormatVersion: 2
+guid: 49ab98029fc8f44eba09ab971013ff13
+timeCreated: 1440268998
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: dino:controls
+    100002: dino:crown
+    100004: dino:head
+    100006: dino:hip
+    100008: dino:jaw
+    100010: dino:jaw_tip
+    100012: dino:l_arm0
+    100014: dino:l_arm1
+    100016: dino:l_foot
+    100018: dino:l_foot_handle
+    100020: dino:l_knee
+    100022: dino:l_leg
+    100024: dino:l_toe
+    100026: dino:mesh
+    100028: dino:nose
+    100030: dino:r_arm0
+    100032: dino:r_arm1
+    100034: dino:r_foot
+    100036: dino:r_foot_handle
+    100038: dino:r_knee
+    100040: dino:r_leg
+    100042: dino:r_toe
+    100044: dino:tail0
+    100046: dino:tail1
+    100048: dino:tail2
+    100050: //RootNode
+    400000: dino:controls
+    400002: dino:crown
+    400004: dino:head
+    400006: dino:hip
+    400008: dino:jaw
+    400010: dino:jaw_tip
+    400012: dino:l_arm0
+    400014: dino:l_arm1
+    400016: dino:l_foot
+    400018: dino:l_foot_handle
+    400020: dino:l_knee
+    400022: dino:l_leg
+    400024: dino:l_toe
+    400026: dino:mesh
+    400028: dino:nose
+    400030: dino:r_arm0
+    400032: dino:r_arm1
+    400034: dino:r_foot
+    400036: dino:r_foot_handle
+    400038: dino:r_knee
+    400040: dino:r_leg
+    400042: dino:r_toe
+    400044: dino:tail0
+    400046: dino:tail1
+    400048: dino:tail2
+    400050: //RootNode
+    4300000: dino:mesh
+    7400000: Idle
+    9500000: //RootNode
+    13700000: dino:mesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 48
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: dino:controls
+        weight: 1
+      - path: dino:controls/dino:l_foot_handle
+        weight: 1
+      - path: dino:controls/dino:r_foot_handle
+        weight: 1
+      - path: dino:hip
+        weight: 1
+      - path: dino:hip/dino:head
+        weight: 1
+      - path: dino:hip/dino:head/dino:crown
+        weight: 1
+      - path: dino:hip/dino:head/dino:jaw
+        weight: 1
+      - path: dino:hip/dino:head/dino:jaw/dino:jaw_tip
+        weight: 1
+      - path: dino:hip/dino:head/dino:nose
+        weight: 1
+      - path: dino:hip/dino:l_arm0
+        weight: 1
+      - path: dino:hip/dino:l_arm0/dino:l_arm1
+        weight: 1
+      - path: dino:hip/dino:l_leg
+        weight: 1
+      - path: dino:hip/dino:l_leg/dino:l_knee
+        weight: 1
+      - path: dino:hip/dino:l_leg/dino:l_knee/dino:l_foot
+        weight: 1
+      - path: dino:hip/dino:l_leg/dino:l_knee/dino:l_foot/dino:l_toe
+        weight: 1
+      - path: dino:hip/dino:r_arm0
+        weight: 1
+      - path: dino:hip/dino:r_arm0/dino:r_arm1
+        weight: 1
+      - path: dino:hip/dino:r_leg
+        weight: 1
+      - path: dino:hip/dino:r_leg/dino:r_knee
+        weight: 1
+      - path: dino:hip/dino:r_leg/dino:r_knee/dino:r_foot
+        weight: 1
+      - path: dino:hip/dino:r_leg/dino:r_knee/dino:r_foot/dino:r_toe
+        weight: 1
+      - path: dino:hip/dino:tail0
+        weight: 1
+      - path: dino:hip/dino:tail0/dino:tail1
+        weight: 1
+      - path: dino:hip/dino:tail0/dino:tail1/dino:tail2
+        weight: 1
+      - path: dino:mesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 20
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

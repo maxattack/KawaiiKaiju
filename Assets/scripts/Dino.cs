@@ -14,6 +14,7 @@ public struct SmoothValue {
 }
 
 
+[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
 public class Dino : CustomBehaviour {
 
@@ -22,14 +23,18 @@ public class Dino : CustomBehaviour {
 	public float maxRotationSpeed = 90f;
 
 	internal static Dino inst;
+	internal Animator anim;
 	internal Rigidbody body;
 	internal SmoothValue linear = new SmoothValue();
 	internal SmoothValue angular = new SmoothValue();
+	
+	static int kSpeed = Animator.StringToHash("speed");
 	
 	// callbacks
 
 	void Awake() {
 		inst = this;
+		anim = GetComponent<Animator>();
 		body = GetComponent<Rigidbody>();
 	}
 	
@@ -39,6 +44,7 @@ public class Dino : CustomBehaviour {
 	
 	void Update() {
 		
+		anim.SetFloat(kSpeed, linear.speed + Mathf.Abs(angular.speed));
 	}
 	
 	void FixedUpdate () {
