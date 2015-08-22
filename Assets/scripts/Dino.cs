@@ -22,6 +22,7 @@ public class Dino : CustomBehaviour {
 	public float maxSpeed = 1f;
 	public float maxRotationSpeed = 90f;
 	public AudioSource[] footfalls;
+	public AudioSource roarAnticipation;
 	public AudioSource roar;
 
 	internal static Dino inst;
@@ -48,6 +49,7 @@ public class Dino : CustomBehaviour {
 	void Update() {
 		
 		if (Input.GetKeyDown(KeyCode.Space)) {
+			roarAnticipation.Play();
 			anim.SetTrigger(kRoar);
 		}
 		
