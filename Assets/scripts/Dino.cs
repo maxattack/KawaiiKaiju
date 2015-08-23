@@ -22,14 +22,14 @@ public class Dino : CustomBehaviour {
 	public const int kLayerBit = (1<<8);
 	static int kSpeed = Animator.StringToHash("Speed");
 	static int kRoar = Animator.StringToHash("Roar");
-	static Quaternion kInputBias = Quaternion.AngleAxis(10.0f, Vector3.up);
+	static Quaternion kInputBias = Quaternion.AngleAxis(13.5f, Vector3.up);
 	
 	public float maxSpeed = 1f;
 	public float maxRotationSpeed = 90f;
 	public AudioSource[] footfalls;
 	public AudioSource roarAnticipation;
 	public AudioSource roar;
-	public AudioSource explosion;
+	public Explosion explosionPrefab;
 	public FireBreath fireBreath;
 	public Transform lazer;
 
@@ -106,7 +106,7 @@ public class Dino : CustomBehaviour {
 			anim.SetTrigger(kRoar);
 		}
 		
-		anim.SetFloat(kSpeed, Mathf.Max (0.8f * linear.speed/maxSpeed, Mathf.Abs(angular.speed/maxRotationSpeed)));
+		anim.SetFloat(kSpeed, Mathf.Max (0.95f * linear.speed/maxSpeed, Mathf.Abs(angular.speed/maxRotationSpeed)));
 	}
 	
 	void FixedUpdate () {
@@ -143,6 +143,7 @@ public class Dino : CustomBehaviour {
 	}
 	
 	void Roar() {
+		Cam.inst.Shake (0.5f);
 		roar.Play();
 		fireBreath.Burst();
 		StartCoroutine(DoLazer());
@@ -150,31 +151,32 @@ public class Dino : CustomBehaviour {
 	
 	IEnumerator DoLazer() {
 		lazer.gameObject.SetActive(true);
-		var hitTime = -1f;
+		var len = -1f;
 		foreach(var t in Transition(0.5f)) {
 			
 			var p0 = fireBreath.transform.position;
 			var dist = 20f * EaseOut2(t);
-			if (hitTime > 0f) {
-				dist = 20f * EaseOut2(hitTime);			
+			if (len > 0f) {
+				dist = len;		
+					
 			} else {
 			
-	
-				lazer.position = p0;
-				lazer.rotation = transform.rotation;
-				lazer.localScale = Vec(1f, 1f, dist);
-				
 				// sweep for building hit
 				RaycastHit hit;
-				if (Physics.SphereCast(p0, 0.3f, transform.forward, out hit, dist, Building.kLayerBit)) {
+				var r = 0.25f;
+				if (Physics.SphereCast(p0, r, transform.forward, out hit, dist - r, Building.kLayerBit)) {
 					var bldg =hit.collider.GetComponentInParent<Building>();
 					bldg.Detonate(hit.point);
-					explosion.Play();
-					hitTime = t;	
+					StartCoroutine(DoExplosions(hit.point));
+					dist = len = hit.distance + r;	
 				}
 					
 			}
-				
+
+			lazer.position = p0;
+			lazer.rotation = transform.rotation;
+			lazer.localScale = Vec(1f, 1f, dist);
+			
 			yield return null;
 		}
 		
@@ -186,6 +188,30 @@ public class Dino : CustomBehaviour {
 			yield return null;
 		}
 		lazer.gameObject.SetActive(false);
+	}
+	
+	IEnumerator DoExplosions(Vector3 loc) {
+		Cam.inst.Shake();
+		Cam.inst.Flash();
+	
+		var explosion = Dup(explosionPrefab, loc, Quaternion.identity);
+		explosion.transform.localScale = Vec(0.75f, 0.75f, 0.75f);
+		
+		yield return new WaitForSeconds(Random.Range (0.05f, 0.15f));
+		
+		var smallerExplosion = Dup(explosionPrefab, loc + 0.5f * Random.insideUnitSphere, Quaternion.identity);
+		smallerExplosion.transform.localScale = Vec(0.35f, 0.35f, 0.35f);
+		smallerExplosion.GetComponent<AudioSource>().volume = 0.75f;
+		
+		if (Random.value > 0.5f) {
+			
+			yield return new WaitForSeconds(Random.Range (0.05f, 0.15f));
+			
+			var evenSmallerExplosion = Dup(explosionPrefab, loc + 0.5f * Random.insideUnitSphere, Quaternion.identity);
+			evenSmallerExplosion.transform.localScale = Vec(0.25f, 0.25f, 0.25f);
+			evenSmallerExplosion.GetComponent<AudioSource>().volume = 0.75f;
+			
+		}
 	}
 }
 

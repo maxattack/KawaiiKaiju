@@ -37,7 +37,7 @@ public class Building : CustomBehaviour {
 			debrisXf.parent = null;
 			debrisGo.hideFlags = HideFlags.HideInHierarchy;
 			var body = debrisGo.AddComponent<Rigidbody>();
-			body.AddExplosionForce(3.333f, impactPoint, 0.5f * scale.y, 0f, ForceMode.VelocityChange);
+			body.AddExplosionForce(6.333f, impactPoint, 0.5f * scale.y, 0f, ForceMode.VelocityChange);
 			body.angularVelocity = Mathf.PI * Random.insideUnitSphere;
 			body.drag = 0.05f;
 			body.angularDrag = 0.05f;

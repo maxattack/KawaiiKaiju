@@ -52,5 +52,13 @@ public class CustomBehaviour : MonoBehaviour {
 	
 	public static float Expovariate(float dt, float uMin=0.05f, float uMax=0.95f) { 
 		return -dt * Mathf.Log(1f-Random.Range(uMin,uMax)); 
-	}	
+	}
+	
+	public static T Dup<T> (T obj) where T : Object { return Instantiate(obj) as T; }
+	public static T Dup<T> (T obj, Vector3 pos) where T : Object { return Instantiate(obj, pos, Quaternion.identity) as T; }
+	public static T Dup<T> (T obj, Vector3 pos, Quaternion q) where T : Object {  return Instantiate(obj, pos, q) as T; }
+	
+	public static Color RGB(float r, float g, float b) { return new Color(r, g, b); }
+	public static Color RGBA(float r, float g, float b, float a) { return new Color(r, g, b, a); }
+	public static Color RGBA(Color c, float a) { return new Color(c.r, c.g, c.b, a); }	
 }
