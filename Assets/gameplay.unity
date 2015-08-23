@@ -653,7 +653,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: 0}
   m_AnchorMax: {x: .5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -8}
+  m_AnchoredPosition: {x: 0, y: -12}
   m_SizeDelta: {x: 292.950012, y: 103.599998}
   m_Pivot: {x: .5, y: .5}
 --- !u!1 &718042932
@@ -1066,7 +1066,7 @@ GameObject:
   - 222: {fileID: 1279220034}
   - 114: {fileID: 1279220033}
   m_Layer: 5
-  m_Name: Legalese
+  m_Name: Jabber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1097,7 +1097,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Created by little_polygon for Ludum Dare 33\n\x03"
+  m_Text: "A Game Sketch by little_polygon for Ludum Dare 33\n\x03"
 --- !u!222 &1279220034
 CanvasRenderer:
   m_ObjectHideFlags: 0
