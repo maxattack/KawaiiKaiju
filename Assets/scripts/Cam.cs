@@ -20,7 +20,8 @@ public class Cam : CustomBehaviour {
 		
 		// smooth tracking
 		var prevTrackingLoc = transform.position;
-		var nextTrackingLoc = Vector3.SmoothDamp(transform.position, Dino.inst.transform.position + offset, ref speed, 0.25f); 
+		var targetLoc = Dino.inst.transform.position + 0.75f * Dino.inst.transform.forward;
+		var nextTrackingLoc = Vector3.SmoothDamp(transform.position, targetLoc + offset, ref speed, 0.35f); 
 		transform.position = nextTrackingLoc;
 
 		// leash rotation

@@ -22,12 +22,14 @@ public class Dino : CustomBehaviour {
 	public const int kLayerBit = (1<<8);
 	static int kSpeed = Animator.StringToHash("Speed");
 	static int kRoar = Animator.StringToHash("Roar");
+	static Quaternion kInputBias = Quaternion.AngleAxis(10.0f, Vector3.up);
 	
 	public float maxSpeed = 1f;
 	public float maxRotationSpeed = 90f;
 	public AudioSource[] footfalls;
 	public AudioSource roarAnticipation;
 	public AudioSource roar;
+	public AudioSource explosion;
 	public FireBreath fireBreath;
 	public Transform lazer;
 
@@ -50,15 +52,15 @@ public class Dino : CustomBehaviour {
 		var result = Vector3.zero;
 		
 		// compute camera-local input
-		if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
+		if (Input.GetKey(KeyCode.W)) {
 			result.z = 1f;
-		} else if (Input.GetKey (KeyCode.DownArrow) || Input.GetKey (KeyCode.S)) {
+		} else if (Input.GetKey (KeyCode.S)) {
 			result.z = -1f;
 		}
 		
-		if (Input.GetKey (KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
+		if (Input.GetKey(KeyCode.A)) {
 			result.x = -1f;
-		} else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
+		} else if (Input.GetKey(KeyCode.D)) {
 			result.x = 1f;
 		}
 
@@ -69,14 +71,18 @@ public class Dino : CustomBehaviour {
 		}
 
 		// get camera directions
-		var camFwd = Cam.inst.transform.forward.x0z().normalized;
-		var camRight = Cam.inst.transform.right.x0z().normalized;
+		var camFwd = kInputBias * Cam.inst.transform.forward.x0z().normalized;
+		var camRight = kInputBias * Cam.inst.transform.right.x0z().normalized;
 		
 		return camFwd * result.z + camRight * result.x;
 	}
 	
 	bool LazerTriggered() {
-		return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.L);
+		return Input.GetKeyDown(KeyCode.L);
+	}
+	
+	public float GetNormalizedSpeed() {
+		return Mathf.Clamp01(body.velocity.x0z().magnitude / maxSpeed);
 	}
 	
 	// callbacks
@@ -144,16 +150,39 @@ public class Dino : CustomBehaviour {
 	
 	IEnumerator DoLazer() {
 		lazer.gameObject.SetActive(true);
-		foreach(var t in Transition(0.75f)) {
-			lazer.position = fireBreath.transform.position;
-			lazer.rotation = transform.rotation;
-			lazer.localScale = Vec(1f, 1f, 20f * EaseOut2(t));
+		var hitTime = -1f;
+		foreach(var t in Transition(0.5f)) {
+			
+			var p0 = fireBreath.transform.position;
+			var dist = 20f * EaseOut2(t);
+			if (hitTime > 0f) {
+				dist = 20f * EaseOut2(hitTime);			
+			} else {
+			
+	
+				lazer.position = p0;
+				lazer.rotation = transform.rotation;
+				lazer.localScale = Vec(1f, 1f, dist);
+				
+				// sweep for building hit
+				RaycastHit hit;
+				if (Physics.SphereCast(p0, 0.3f, transform.forward, out hit, dist, Building.kLayerBit)) {
+					var bldg =hit.collider.GetComponentInParent<Building>();
+					bldg.Detonate(hit.point);
+					explosion.Play();
+					hitTime = t;	
+				}
+					
+			}
+				
 			yield return null;
 		}
+		
+		var sz = lazer.localScale.z;
 		foreach(var t in Transition (0.25f)) {
 			lazer.position = fireBreath.transform.position;
 			lazer.rotation = transform.rotation;
-			lazer.localScale = Vec(1f-t, 1f-t, 100f);
+			lazer.localScale = Vec(1f-t, 1f-t, sz);
 			yield return null;
 		}
 		lazer.gameObject.SetActive(false);
