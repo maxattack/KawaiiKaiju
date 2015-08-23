@@ -24,24 +24,29 @@ public class Building : CustomBehaviour {
 		for(int x=0; x<nx; ++x)
 		for(int y=0; y<ny; ++y)
 		for(int z=0; z<nz; ++z) {
-			var debrisGo = GameObject.CreatePrimitive(PrimitiveType.Cube);
-			var debrisXf = debrisGo.transform;
-			debrisXf.parent = transform;
-			debrisXf.localScale = 0.9f * debrisSize;
-			debrisXf.localRotation = Quaternion.identity;
-			debrisXf.localPosition = Vec(
-				debrisSize.x * x + 0.5f * debrisSize.x - 0.5f * worldSize.x,
-				debrisSize.y * y + 0.5f * debrisSize.y,
-				debrisSize.z * z + 0.5f * debrisSize.z - 0.5f * worldSize.z
-			);
-			debrisXf.parent = null;
-			debrisGo.hideFlags = HideFlags.HideInHierarchy;
-			var body = debrisGo.AddComponent<Rigidbody>();
-			body.AddExplosionForce(6.333f, impactPoint, 0.5f * scale.y, 0f, ForceMode.VelocityChange);
-			body.angularVelocity = Mathf.PI * Random.insideUnitSphere;
-			body.drag = 0.05f;
-			body.angularDrag = 0.05f;
-			debrisGo.GetComponent<BoxCollider>().sharedMaterial = physMat;
+			// only make debris on the surface, and omit some randomly, just to be conservative
+			if (x == 0 || x == nx-1 || y == 0 || y == ny - 1 || z == 0 || z == nz-1)
+			if (Random.value < 0.25f) {
+				var debrisGo = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				var debrisXf = debrisGo.transform;
+				debrisXf.parent = transform;
+				debrisXf.localScale = 0.9f * debrisSize;
+				debrisXf.localRotation = Quaternion.identity;
+				debrisXf.localPosition = Vec(
+					debrisSize.x * x + 0.5f * debrisSize.x - 0.5f * worldSize.x,
+					debrisSize.y * y + 0.5f * debrisSize.y,
+					debrisSize.z * z + 0.5f * debrisSize.z - 0.5f * worldSize.z
+				);
+				debrisXf.parent = null;
+				debrisGo.hideFlags = HideFlags.HideInHierarchy;
+				var body = debrisGo.AddComponent<Rigidbody>();
+				body.AddExplosionForce(6.333f, impactPoint, 0.5f * scale.y, 0f, ForceMode.VelocityChange);
+				body.angularVelocity = Mathf.PI * Random.insideUnitSphere;
+				body.drag = 0.05f;
+				body.angularDrag = 0.05f;
+				debrisGo.GetComponent<BoxCollider>().sharedMaterial = physMat;
+				
+			}
 		}
 		
 		Destroy(gameObject);

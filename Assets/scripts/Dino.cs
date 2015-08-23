@@ -152,10 +152,11 @@ public class Dino : CustomBehaviour {
 	IEnumerator DoLazer() {
 		lazer.gameObject.SetActive(true);
 		var len = -1f;
+		var maxLazerDist = 10f;
 		foreach(var t in Transition(0.5f)) {
 			
 			var p0 = fireBreath.transform.position;
-			var dist = 20f * EaseOut2(t);
+			var dist = maxLazerDist * EaseOut2(t);
 			if (len > 0f) {
 				dist = len;		
 					
@@ -163,12 +164,13 @@ public class Dino : CustomBehaviour {
 			
 				// sweep for building hit
 				RaycastHit hit;
-				var r = 0.25f;
-				if (Physics.SphereCast(p0, r, transform.forward, out hit, dist - r, Building.kLayerBit)) {
+				var r = 0.35f;
+				var fwd = transform.forward;
+				if (Physics.SphereCast(p0 - 0.1f * fwd, r, fwd, out hit, dist - r + 0.1f, Building.kLayerBit)) {
 					var bldg =hit.collider.GetComponentInParent<Building>();
 					bldg.Detonate(hit.point);
 					StartCoroutine(DoExplosions(hit.point));
-					dist = len = hit.distance + r;	
+					dist = len = hit.distance + r - 0.1f;	
 				}
 					
 			}
