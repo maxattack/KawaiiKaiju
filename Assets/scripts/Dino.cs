@@ -17,8 +17,12 @@ public struct SmoothValue {
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
 public class Dino : CustomBehaviour {
-
-
+	
+	public const int kLayer = 8;
+	public const int kLayerBit = (1<<8);
+	static int kSpeed = Animator.StringToHash("Speed");
+	static int kRoar = Animator.StringToHash("Roar");
+	
 	public float maxSpeed = 1f;
 	public float maxRotationSpeed = 90f;
 	public AudioSource[] footfalls;
@@ -32,9 +36,6 @@ public class Dino : CustomBehaviour {
 	internal Rigidbody body;
 	internal SmoothValue linear = new SmoothValue();
 	internal SmoothValue angular = new SmoothValue();
-	
-	static int kSpeed = Animator.StringToHash("Speed");
-	static int kRoar = Animator.StringToHash("Roar");
 
 	// getters
 
@@ -74,6 +75,10 @@ public class Dino : CustomBehaviour {
 		return camFwd * result.z + camRight * result.x;
 	}
 	
+	bool LazerTriggered() {
+		return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.L);
+	}
+	
 	// callbacks
 
 	void Awake() {
@@ -90,12 +95,12 @@ public class Dino : CustomBehaviour {
 	
 	void Update() {
 		
-		if (Input.GetKeyDown(KeyCode.Space) && !IsRoaring()) {
+		if (LazerTriggered() && !IsRoaring()) {
 			roarAnticipation.Play();
 			anim.SetTrigger(kRoar);
 		}
 		
-		anim.SetFloat(kSpeed, Mathf.Max (linear.speed/maxSpeed, Mathf.Abs(angular.speed/maxRotationSpeed)));
+		anim.SetFloat(kSpeed, Mathf.Max (0.8f * linear.speed/maxSpeed, Mathf.Abs(angular.speed/maxRotationSpeed)));
 	}
 	
 	void FixedUpdate () {

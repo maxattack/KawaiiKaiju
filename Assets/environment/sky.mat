@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: floor
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: sky
+  m_Shader: {fileID: 106, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -19,8 +19,8 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 80d0802b263c040f4908bb0c793b7d17, type: 3}
-          m_Scale: {x: 1600, y: 1600}
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -55,7 +55,7 @@ Material:
           name: _EmissionMap
         second:
           m_Texture: {fileID: 0}
-          m_Scale: {x: 1600, y: 1600}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -93,6 +93,18 @@ Material:
         second: .5
       data:
         first:
+          name: _Exposure
+        second: 1.13
+      data:
+        first:
+          name: _SunSize
+        second: 0
+      data:
+        first:
+          name: _AtmosphereThickness
+        second: .920000017
+      data:
+        first:
           name: _Parallax
         second: .0199999996
       data:
@@ -102,7 +114,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: 0
+        second: .5
       data:
         first:
           name: _BumpScale
@@ -126,7 +138,7 @@ Material:
       data:
         first:
           name: _Metallic
-        second: .131999999
+        second: 0
     m_Colors:
       data:
         first:
@@ -135,4 +147,12 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .625, g: .509825051, b: .261948526, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _SkyTint
+        second: {r: .346291095, g: .402081311, b: .772058845, a: 1}
+      data:
+        first:
+          name: _GroundColor
+        second: {r: .544117689, g: .452897966, b: .316068351, a: 1}
