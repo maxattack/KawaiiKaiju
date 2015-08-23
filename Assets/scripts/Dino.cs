@@ -22,7 +22,7 @@ public class Dino : CustomBehaviour {
 	public const int kLayerBit = (1<<8);
 	static int kSpeed = Animator.StringToHash("Speed");
 	static int kRoar = Animator.StringToHash("Roar");
-	static Quaternion kInputBias = Quaternion.AngleAxis(13.5f, Vector3.up);
+	static Quaternion kInputBias = Quaternion.AngleAxis(15f, Vector3.up);
 	
 	public float maxSpeed = 1f;
 	public float maxRotationSpeed = 90f;
@@ -41,7 +41,7 @@ public class Dino : CustomBehaviour {
 
 	// getters
 
-	bool IsRoaring() {
+	public bool IsRoaring() {
 		return anim.GetCurrentAnimatorStateInfo(0).shortNameHash == kRoar;
 	}
 	
@@ -114,7 +114,7 @@ public class Dino : CustomBehaviour {
 		var targetSpeed = 0.0f;
 		var targetRot = 0.0f;
 		
-		if (!IsRoaring()) {
+		if (Logo.inst == null && !IsRoaring()) {
 
 			// sampling input
 			var input = GetMoveInput();
@@ -147,13 +147,17 @@ public class Dino : CustomBehaviour {
 		roar.Play();
 		fireBreath.Burst();
 		StartCoroutine(DoLazer());
+		
+		if (Logo.inst) {
+			Logo.inst.Clear();
+		}
 	}
 	
 	IEnumerator DoLazer() {
 		lazer.gameObject.SetActive(true);
 		var len = -1f;
-		var maxLazerDist = 10f;
-		foreach(var t in Transition(0.5f)) {
+		var maxLazerDist = 14f;
+		foreach(var t in Transition(0.4f)) {
 			
 			var p0 = fireBreath.transform.position;
 			var dist = maxLazerDist * EaseOut2(t);
@@ -165,12 +169,13 @@ public class Dino : CustomBehaviour {
 				// sweep for building hit
 				RaycastHit hit;
 				var r = 0.35f;
+				var err = 0.3f;
 				var fwd = transform.forward;
-				if (Physics.SphereCast(p0 - 0.1f * fwd, r, fwd, out hit, dist - r + 0.1f, Building.kLayerBit)) {
+				if (Physics.SphereCast(p0 - err * fwd, r, fwd, out hit, dist - r + err, Building.kLayerBit)) {
 					var bldg =hit.collider.GetComponentInParent<Building>();
 					bldg.Detonate(hit.point);
 					StartCoroutine(DoExplosions(hit.point));
-					dist = len = hit.distance + r - 0.1f;	
+					dist = len = hit.distance + r - err;	
 				}
 					
 			}
