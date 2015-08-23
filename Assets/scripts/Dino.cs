@@ -24,6 +24,7 @@ public class Dino : CustomBehaviour {
 	public AudioSource[] footfalls;
 	public AudioSource roarAnticipation;
 	public AudioSource roar;
+	public FireBreath fireBreath;
 
 	internal static Dino inst;
 	internal Animator anim;
@@ -33,6 +34,13 @@ public class Dino : CustomBehaviour {
 	
 	static int kSpeed = Animator.StringToHash("Speed");
 	static int kRoar = Animator.StringToHash("Roar");
+
+	// getters
+
+	bool IsRoaring() {
+		return anim.GetCurrentAnimatorStateInfo(0).shortNameHash == kRoar;
+	}
+	
 	
 	// callbacks
 
@@ -48,7 +56,7 @@ public class Dino : CustomBehaviour {
 	
 	void Update() {
 		
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(KeyCode.Space) && !IsRoaring()) {
 			roarAnticipation.Play();
 			anim.SetTrigger(kRoar);
 		}
@@ -60,7 +68,7 @@ public class Dino : CustomBehaviour {
 
 		
 		var targetSpeed = Input.GetKey(KeyCode.UpArrow) ? maxSpeed : 0f;
-		if (anim.GetCurrentAnimatorStateInfo(0).shortNameHash == kRoar)
+		if (IsRoaring())
 			targetSpeed = 0f;
 		var speed = linear.Update (targetSpeed, 0.15f);
 		body.MovePosition(body.position + speed * transform.forward * Time.fixedDeltaTime);
@@ -80,5 +88,6 @@ public class Dino : CustomBehaviour {
 	
 	void Roar() {
 		roar.Play();
+		fireBreath.Burst();
 	}
 }
