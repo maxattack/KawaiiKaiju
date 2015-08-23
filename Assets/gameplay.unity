@@ -14,10 +14,10 @@ SceneSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: .655044019, g: .694798648, b: .740999997, a: 1}
   m_FogMode: 3
-  m_FogDensity: .00999999978
+  m_FogDensity: .0399999991
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: .211999997, g: .226999998, b: .259000003, a: 1}
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .133320197, g: .125594705, b: .16911763, a: 1}
+  m_Color: {r: .162, g: .150000006, b: .137999997, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 2ec03c82e7f17446bb32855afd25be10, type: 3}
     m_FontSize: 16
@@ -632,7 +632,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'WASD : Move, L : Lazer/Begin'
+  m_Text: 'WASD : Move, L : Begin/Lazer'
 --- !u!222 &691974156
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1084,7 +1084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .184, g: .169279993, b: .150879994, a: 1}
+  m_Color: {r: .117647052, g: .0874127895, b: .0467128009, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 56de1f04296564446a4c2ba485f8ad74, type: 3}
     m_FontSize: 12

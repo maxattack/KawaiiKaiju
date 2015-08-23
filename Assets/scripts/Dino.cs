@@ -202,12 +202,11 @@ public class Dino : CustomBehaviour {
 		Cam.inst.Flash();
 	
 		var explosion = Dup(explosionPrefab, loc, Quaternion.identity);
-		explosion.transform.localScale = Vec(0.75f, 0.75f, 0.75f);
 		
 		yield return new WaitForSeconds(Random.Range (0.05f, 0.15f));
 		
 		var smallerExplosion = Dup(explosionPrefab, loc + 0.5f * Random.insideUnitSphere, Quaternion.identity);
-		smallerExplosion.transform.localScale = Vec(0.35f, 0.35f, 0.35f);
+		smallerExplosion.transform.localScale = Vec(0.45f, 0.45f, 0.45f);
 		smallerExplosion.GetComponent<AudioSource>().volume = 0.75f;
 		
 		if (Random.value > 0.5f) {

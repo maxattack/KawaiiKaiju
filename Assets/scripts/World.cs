@@ -8,7 +8,7 @@ public class World : CustomBehaviour {
 	void Start () {
 		
 		// randomly place buildings
-		var radius = (transform.position - Dino.inst.transform.position).x0z().magnitude - 4f;
+		var radius = (transform.position - Dino.inst.transform.position).x0z().magnitude - 3.333f;
 		
 		var density = 0.12f;
 		var area = Mathf.PI * radius * radius;
