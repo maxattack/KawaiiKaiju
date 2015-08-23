@@ -632,7 +632,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'WASD : Move, L : Begin/Lazer'
+  m_Text: '[WASD] to Move, [L] to Begin/Lazer'
 --- !u!222 &691974156
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -654,7 +654,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: 0}
   m_AnchorMax: {x: .5, y: 0}
   m_AnchoredPosition: {x: 0, y: -12}
-  m_SizeDelta: {x: 292.950012, y: 103.599998}
+  m_SizeDelta: {x: 657.700012, y: 103.599998}
   m_Pivot: {x: .5, y: .5}
 --- !u!1 &718042932
 GameObject:
@@ -1084,7 +1084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .117647052, g: .0874127895, b: .0467128009, a: 1}
+  m_Color: {r: .210999995, g: .156774849, b: .083779417, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 56de1f04296564446a4c2ba485f8ad74, type: 3}
     m_FontSize: 12
@@ -1119,7 +1119,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: 0}
   m_AnchorMax: {x: .5, y: 0}
   m_AnchoredPosition: {x: 0, y: -30}
-  m_SizeDelta: {x: 1015.40002, y: 103.599998}
+  m_SizeDelta: {x: 716.099976, y: 103.599998}
   m_Pivot: {x: .5, y: .5}
 --- !u!1 &1288066719
 GameObject:
