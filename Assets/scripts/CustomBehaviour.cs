@@ -18,4 +18,39 @@ public class CustomBehaviour : MonoBehaviour {
 	}
 	
 	
+	// Some easing functions
+	public static float Parabola(float x) { return 1f - (x=1f-x-x)*(x); }
+	public static float ParabolaDeriv(float x) { return 4f*(1f-x-x); }
+	public static float EaseIn2(float u) { return u*u; }
+	public static float EaseIn4(float u) { return u*u*u*u; }
+	public static float EaseOut2(float u) { return 1f-(u=1f-u)*u; }
+	public static float EaseOut4(float u) { return 1f-(u=1f-u)*u*u*u; }
+	
+	public static float Modf(float x, float radix) {
+		return ((x % radix) + radix) % radix;
+	}
+	
+	public static float EaseInOutBack(float t)  {
+		var v = t + t;
+		var s = 1.70158f * 1.525f;
+		if (v < 1.0f) {
+			return 0.5f * (v * v * ((s + 1.0f) * v - s));
+		} else {
+			v -= 2.0f;
+			return 0.5f * (v * v * ((s + 1.0f) * v + s) + 2.0f);
+		}
+	}
+	
+	public static float EaseOutBack(float t) { 
+		t-=1.0f; 
+		return t*t*((1.70158f+1.0f)*t + 1.70158f) + 1.0f; 
+	}
+	
+	public static Vector3 Lerp(Vector3 v0, Vector3 v1, float u) {
+		return v0 + u * (v1 - v0);
+	}
+	
+	public static float Expovariate(float dt, float uMin=0.05f, float uMax=0.95f) { 
+		return -dt * Mathf.Log(1f-Random.Range(uMin,uMax)); 
+	}	
 }
